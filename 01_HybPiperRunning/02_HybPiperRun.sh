@@ -31,4 +31,10 @@ for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_Angiosperm353_NCBI_u
 	--prefix "${base}"_nomerge  --no_padding_supercontigs \
 	--timeout_assemble 600 --paralog_min_length_percentage 0.5
 	done
+
+ls -d *nomerge > namelist.txt
+hybpiper stats --targetfile_dna mega353.fasta supercontig namelist.txt
+hybpiper paralog_retriever --targetfile_dna mega353.fasta namelist.txt
+hybpiper recovery_heatmap seq_lengths.tsv
+
 	
