@@ -5,11 +5,13 @@ Manuscript see: LINK inserted here (https://www.biorxiv.org/)
 
 <p float="left">
   <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAcyno.jpg" height="200" />
-  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAroughii.jpg" height="200" /> 
   <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAcyno2.jpg" height="200" /> 
+  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAroughii.jpg" height="200" /> 
+  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAroughii2.jpg" height="200" /> 
 </p>
 
-####  ▪️ Pop gene analysis (PCA, NJ-tree, Structure)
+### Gene-based tree analysis 
+▪️ Pop gene analysis (PCA, NJ-tree, Structure)
 1. All AD1 65 samples' raw reads were trimmed with [Trimmomatic](https://github.com/usadellab/Trimmomatic.git).
    > trimmomatic PE -threads $thr $file1 $file2 $tDir/$name.R1.fq.gz $tDir/$name.U1.fq.gz $tDir/$name.R2.fq.gz $tDir/$name.U2.fq.gz ILLUMINACLIP:Adapters.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:75
 
