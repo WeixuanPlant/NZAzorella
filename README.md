@@ -31,5 +31,3 @@ Manuscript see: LINK inserted here (https://www.biorxiv.org/)
 
 ### Please cite the paper: 
 
-Ciation: [Ning, W., Rogers, K.M., Hsu, CY. et al. Origin and diversity of the wild cottons (*Gossypium hirsutum*) of Mound Key, Florida. Sci Rep 14, 14046 (2024). https://doi.org/10.1038/s41598-024-64887-8](https://www.nature.com/articles/s41598-024-64887-8)
-
