@@ -1,4 +1,4 @@
-# NZAzorellaAngiosperms353
+# New Zealand *Azorella* Angiosperms353
 Hyb-Seq of New Zealand Azorella via Angiosperms353 bait set
 
 This is under construction by Weixuan! 
