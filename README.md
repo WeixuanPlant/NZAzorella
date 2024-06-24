@@ -10,7 +10,9 @@ Manuscript see: LINK inserted here (https://www.biorxiv.org/)
   <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAroughii2.jpg" height="150" /> 
 </p>
 
-### Gene-based tree analysis 
+### Gene tree based  phylogeny inference 
+
+#### Single copy gene sequence extraction
 ▪️ Pop gene analysis (PCA, NJ-tree, Structure)
 1. All AD1 65 samples' raw reads were trimmed with [Trimmomatic](https://github.com/usadellab/Trimmomatic.git).
    > trimmomatic PE -threads $thr $file1 $file2 $tDir/$name.R1.fq.gz $tDir/$name.U1.fq.gz $tDir/$name.R2.fq.gz $tDir/$name.U2.fq.gz ILLUMINACLIP:Adapters.fa:2:30:10:2:True LEADING:3 TRAILING:3 MINLEN:75
@@ -21,14 +23,15 @@ Manuscript see: LINK inserted here (https://www.biorxiv.org/)
 4. Using biallelic SNPs to estimate population genetic groups via [PLINK](https://www.cog-genomics.org/plink/) (PCA) and [LEA](https://bioconductor.org/packages/release/bioc/html/LEA.html).
 5. Including additional two AD4 samples as outgroup, and calling bialleic SNPs from the 'combined' VCF with 65 AD1 samples, which include variable and invariable sites.
 
-####  ▪️ Genetic variation comparison (Pi, Dxy, Fst, He, Fis, LD)
-1. [Pixy](https://github.com/ksamuk/pixy.git) was applied to 
+#### High copy gene sequence extraction
 
 
-####  ▪️ Novel SNPs tabulating
-1. Bcftools
+### SNPs based phylogeny analysis 
 
-####  ▪️ MK cotton population demographic analysis (PCA, Tajima's D, SFS, Ne)
+#### SNPs extraction from Hyb-Seq data
+
+#### SNPs extraction from Hyb-Seq data
+
 
 
 ### Please cite the paper: 
