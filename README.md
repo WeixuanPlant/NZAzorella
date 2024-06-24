@@ -4,10 +4,10 @@ Hyb-Seq (Angiosperms353 baitset) and Genome-skimming sequencing of New Zealand *
 Manuscript see: LINK inserted here (https://www.biorxiv.org/)
 
 <p float="left">
-  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAcyno.jpg" height="200" />
-  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAcyno2.jpg" height="200" /> 
-  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAroughii.jpg" height="200" /> 
-  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAroughii2.jpg" height="200" /> 
+  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAcyno.jpg" height="150" />
+  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAcyno2.jpg" height="150" /> 
+  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAroughii.jpg" height="150" /> 
+  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAroughii2.jpg" height="150" /> 
 </p>
 
 ### Gene-based tree analysis 
