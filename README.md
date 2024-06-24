@@ -1,7 +1,7 @@
 # Phylogenomics analysis of New Zealand *Azorella* 
 Hyb-Seq (Angiosperms353 baitset) and Genome-skimming sequencing of New Zealand *Azorella*   
 
-Manuscript see: LINK inserted here (https://www.biorxiv.org/)
+Manuscript: LINK inserted here (https://www.biorxiv.org/)
 
 <p float="left">
   <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAcyno.jpg" height="150" />
