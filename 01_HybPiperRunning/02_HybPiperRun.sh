@@ -1,11 +1,3 @@
-First, the sequencing reads were mapped to the Angiosperms353 bait set reference sequences (Johnson, et al. 2018) using BWA v. 0.7.17 (Li 2013), 
-and to improve the exon recovery rate,
-
-Second, mapped reads were sorted to each targeted gene and de novo assembled into large contigs with SPAdes v.3.11.1 (Bankevich, et al. 2012). 
-Finally, the exons in assembled contigs were extracted and concatenated according to the reference sequences with Exonerate v.2.2.0 (Slater and Birney 2005). 
-We also calculated the recovery rates of exons by comparing the recovered exon length with the length of references for each gene. 
-
-
 #!/bin/bash -e
 #SBATCH --job-name=angiosperms353_hybpiper  #job name (shows up in the queue)
 #SBATCH --account=massey02696
@@ -32,9 +24,44 @@ for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_Angiosperm353_NCBI_u
 	--timeout_assemble 600 --paralog_min_length_percentage 0.5
 	done
 
+############################################################################################################
+
 ls -d *nomerge > namelist.txt
 hybpiper stats --targetfile_dna mega353.fasta supercontig namelist.txt
 hybpiper paralog_retriever --targetfile_dna mega353.fasta namelist.txt
 hybpiper recovery_heatmap seq_lengths.tsv
 
+mkdir SupercontigsOutput
+hybpiper retrieve_sequences --targetfile_dna mega353.fasta supercontig --sample_names namelist.txt --fasta_dir SupercontigsOutput
+
+# Get a list of genes with sequences more than 15 indivdiuals 
+grep ">" -c *_supercontig.fasta | sed 's/_supercontig.fasta:/ /' | sort -g -k 2 | awk '$2 >= 15  { print $1}' > aln132_n15.txt
+
+# Remove all "NNNN" gap sites among sequences
+for i in $(cat aln132_n15.txt); do  awk '{ print $1}' "${i}"_supercontig.fasta | \
+ awk '/^>/ { print (NR==1 ? "" : RS) $0; next } { printf "%s", $0 } END { printf RS }' | \
+ sed '/^>/! s/N//g' > "${i}"_supercontig_fixed.fasta; done
+
+# build a Tree rename file
+#https://www.cyberciti.biz/faq/how-to-remove-carriage-return-in-linux-or-unix/
+sed 's/\r$//' Treenamen132.csv > Treenamen132_fixed.csv
+
+
+#######################################################################################
+
+#align the individual gene sequences with maff
+module load MAFFT/7.429-gimkl-2020a
+for word in $(cat aln132_n15.txt); do mafft --auto --thread 10 "${word}"_supercontig_fixed.fasta > "${word}"_aln.fasta; done
+
+
+module load trimAl/1.4.1-GCC-9.2.0
+for word in $(cat aln132_n15.txt); do echo "${word}"; trimal -in "${word}"_aln.fasta -out "${word}"_trim.fasta -gt 0.7; done 
+
+grep -c '>' *_trim.fasta | sed 's/_trim.fasta:/ /' | sort -g -k 2 | awk '$2 >= 0  { print $1, $2}'
+
+for word in $(cat ../aln132_n15.txt)
+do
+echo "${word}"
+sed 's/,/\t/g' ../Treenamen132_fixed.csv | while read a b; do sed -i "s/$a/$b/" "${word}"_trim.fasta; done
+done
 	
