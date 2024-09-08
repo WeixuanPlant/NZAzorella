@@ -96,12 +96,26 @@ for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_
 #
 
 ### SNPs based phylogeny analysis 
+#### SNP calling via remapping the reads back to the same reference for 23 representative individuals
+```
+#The reference fasta gene names need to be changed according to file names
+#The script variantcall need to change fastaq to fq
+#The GenotypetoPCA need to change the script expression & to || for GATK
+#The plink needs to update the version 
 
-#### SNPs extraction from Hyb-Seq data
+module rest
+module load GATK/4.1.4.1-gimkl-2018b
+module load PLINK/1.09b6.16
+module load SAMtools/1.8-gimkl-2018b
+module load BWA/0.7.17-gimkl-2017a
+module load BCFtools/1.9-GCC-7.4.0
+module load Python/3.7.3-gimkl-2018b
+module load WhatsHap/1.1-gimkl-2020a
 
-#### SNPs extraction from Hyb-Seq data
-
-
+bash variantcall.sh Azho-AK16_S7_L001.supercontigs.fasta Azho-AK16_S7_L001 #please note that sample name do not have the slash / at the end
+bash GenotypesToPCA.sh Azho-AK16_S7_L001.supercontigs.fasta Azho-AK16_S7_L001
+bash plink_stats.sh Azho-AK16_S7_L001
+```
 
 ### Please cite the paper: 
 
