@@ -1,0 +1,166 @@
+Azorella scripts for Genome skimming
+
+
+for f in *L5_*.fq.gz; do mv "$f" "$(echo "$f" | sed 's/DKDL210011397.*HH7GGCCX2_L5_//')"; done
+for f in WX*.fq.gz; do mv "$f" "$(echo "$f" | sed 's/_DKDL230002794-1A_HJMHYCCX2_L4//')"; done
+
+for f in *.fastq.gz; do mv "$f" "$(echo "$f" | sed 's/fastq/fq/')"; done
+for f in *_R1_001.fq.gz; do mv "$f" "$(echo "$f" | sed 's/_.*_R1_001.fq.gz/_1.fq.gz/')"; done
+for f in *_R2_001.fq.gz; do mv "$f" "$(echo "$f" | sed 's/_.*_R2_001.fq.gz/_2.fq.gz/')"; done
+
+
+#!/bin/bash -e
+#SBATCH --job-name=genomeskimming_readstrim  #job name (shows up in the queue)
+#SBATCH --account=massey02696
+#SBATCH --cpus-per-task=30   # number of CPUs per task (1 by default)
+#SBATCH --time=60:00:00 #Walltime (HH:MM:SS)
+#SBATCH --mem=30G  #Memory in GB
+
+module load Trimmomatic/0.39-Java-1.8.0_144
+
+for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_upload/01_trimmedreads/*_1.fq.gz
+        do
+        withpath="${file}"
+        filename=${withpath##*/}
+        base="${filename%**_1.fq.gz}"
+        echo "${base}"
+        trimmomatic PE -threads 25 "${base}"_1.fq.gz "${base}"_2.fq.gz \
+        "${base}"_1P.fq.gz "${base}"_1UP.fq.gz \
+        "${base}"_2P.fq.gz "${base}"_2UP.fq.gz \
+        ILLUMINACLIP:TruSeq3-PE-2.fa:2:20:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:50
+done
+
+
+
+
+#!/bin/bash -e
+#SBATCH --job-name=genomeskimming_getorgenelle  #job name (shows up in the queue)
+#SBATCH --account=massey02696
+#SBATCH --cpus-per-task=30   # number of CPUs per task (1 by default)
+#SBATCH --time=60:00:00 #Walltime (HH:MM:SS)
+#SBATCH --mem=30G  #Memory in GB
+
+
+module load Miniconda3
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate /scale_wlg_persistent/filesets/project/massey02696/biopython
+cd /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_upload/03_getorgenlle
+
+
+for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_upload/02_trimmedreads/*_1P.fq.gz 
+	do 
+	withpath="${file}" 
+	filename=${withpath##*/} 
+	base="${filename%*_1P.fq.gz}" 
+	echo "${base}" 
+	
+	get_organelle_from_reads.py -1 ../02_trimmedreads/"${base}"_1P.fq.gz -2 ../02_trimmedreads/"${base}"_2P.fq.gz -o plastome_output/"${base}" -R 15 -k 21,45,65,85,105 -F embplant_pt
+	
+	get_organelle_from_reads.py -1 ../02_trimmedreads/"${base}"_1P.fq.gz -2 ../02_trimmedreads/"${base}"_2P.fq.gz -o nrdna_output/"${base}" -R 10 -k 35,85,115 -F embplant_nr
+	
+	done
+
+
+############################################################################################################################
+
+Acyanopetalum52/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:2
+Acyanopetalum52/embplant_pt.K85.scaffolds.graph1.2.path_sequence.fasta:2
+Aexigua64/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:3
+Aexigua64/embplant_pt.K85.scaffolds.graph1.2.path_sequence.fasta:3
+
+S077_Azcol/embplant_pt.K105.scaffolds.graph1.1.path_sequence.fasta:2
+
+S080_Azro/embplant_pt.K105.scaffolds.graph1.1.path_sequence.fasta:1
+S080_Azro/embplant_pt.K105.scaffolds.graph1.2.path_sequence.fasta:1
+
+
+Afragosea/embplant_pt.K105.scaffolds.graph1.1.path_sequence.fasta:6
+
+Ahookeri68/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:4
+Anitens49/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:2
+Aranunculus447/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:4
+S044_Azly/embplant_pt.K105.scaffolds.graph1.1.path_sequence.fasta:6
+S056_Azbu/embplant_pt.K105.scaffolds.graph1.1.path_sequence.fasta:3
+
+
+S031_Azfra/embplant_pt.K105.scaffolds.graph1.1.path_sequence.fasta:1
+S031_Azfra/embplant_pt.K105.scaffolds.graph1.2.path_sequence.fasta:1
+
+
+
+module load Miniconda3
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate /scale_wlg_persistent/filesets/project/massey02696/biopython
+cd /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_upload/03_getorgenlle
+
+
+
+
+for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_upload/02_trimmedreads/S018*_1P.fq.gz 
+	do 
+	withpath="${file}" 
+	filename=${withpath##*/} 
+	base="${filename%*_1P.fq.gz}" 
+	echo "${base}" 
+	
+	get_organelle_from_reads.py -1 ../02_trimmedreads/"${base}"_1P.fq.gz -2 ../02_trimmedreads/"${base}"_2P.fq.gz -o plastome_output_scaffold2/"${base}" \
+	-R 40 -t 60 -w 60 -k 21,45,65,85 -F embplant_pt --max-reads inf --reduce-reads-for-coverage inf --max-extending-len 6000 
+		
+	done
+
+
+
+
+Afragosea/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:5
+
+Ahookeri68/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:4
+Aranunculus447/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:4
+
+S056_Azbu/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:3
+
+Anitens49/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:2
+S031_Azfra/embplant_pt.K85.scaffolds.graph1.1.path_sequence.fasta:2
+
+
+shopt -s globstar  ##globstar will let us match files recursively
+files=( */*.fasta )  ##Array containing matched files, mention where to search and what files here
+
+for i in "${files[@]}"; do d="${i%/*}"; d_="${d##*/}";  f="${i##*/}"; \
+cp "$i" ../../04_alignemnt/plastome/"${d_}"_"$f"; done
+
+
+for f in *.fasta; do mv "$f" "$(echo "$f" | sed 's/_embplant_pt.*.complete.graph1.1.path_sequence/_plastome1/')"; done
+for f in *.fasta; do mv "$f" "$(echo "$f" | sed 's/_embplant_pt.*.complete.graph1.2.path_sequence/_plastome2/')"; done
+
+for f in *.fasta; do mv "$f" "$(echo "$f" | sed 's/_embplant_pt.*.scaffolds.graph1.1.path_sequence/_plastome1/')"; done
+for f in *.fasta; do mv "$f" "$(echo "$f" | sed 's/_embplant_pt.*.scaffolds.graph1.2.path_sequence/_plastome2/')"; done
+
+
+
+iqtree2 -s plastome_n99complete_n6map_aln_trim.fasta -B 1000 -T AUTO --prefix ./Azorella_plastome_n99complete_n6map_aln_trim --undo
+
+
+################################################################################
+
+for i in "${files[@]}"; do d="${i%/*}"; d_="${d##*/}";  f="${i##*/}"; \
+> cp "$i" ../../04_alignemnt/nrdna/"${d_}"_"$f"; done
+
+for f in *.fasta; do mv "$f" "$(echo "$f" | sed 's/_embplant_nr.*.graph/_graph/')"; done
+for f in *.fasta; do mv "$f" "$(echo "$f" | sed 's/.repeat_pattern.*.path_sequence//')"; done
+for f in *.fasta; do mv "$f" "$(echo "$f" | sed 's/.path_sequence//')"; done
+
+
+for FILE in *.fasta;
+do
+ awk '/^>/ {gsub(/.fa(sta)?$/,"",FILENAME);printf(">%s\n",FILENAME);next;} {print}' $FILE > changed_${FILE}
+done
+
+for FILE in changed*.fasta;
+	do
+	awk 'BEGIN{RS=">"}{if(NR>1)print ">"$1"_"(NR-1)"\n"$2}' $FILE > sorted_${FILE}
+done
+
+
+
+sed 's/,/\t/g'  Treenamen105_fixed.csv | while read a b; do sed -i "s/$a/$b/" nrDNA_sorted_aln_trimgt07.fasta.treefile; done
+
