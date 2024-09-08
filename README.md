@@ -118,6 +118,5 @@ bash GenotypesToPCA.sh Azho-AK16_S7_L001.supercontigs.fasta Azho-AK16_S7_L001
 bash plink_stats.sh Azho-AK16_S7_L001
 ```
 
-#
-### This pipeline still underconstruction!
+
 
