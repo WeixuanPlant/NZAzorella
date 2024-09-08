@@ -16,15 +16,11 @@ Genera with species of multiple ploidal levels provide models to understand succ
 
 ### Gene tree based  phylogeny inference 
 
-We extracted Angiosperm353 loci via HybPiper via Hyb-Seq, and 
+We extracted Angiosperm353 loci via [HybPiper](https://github.com/mossmatters/HybPiper) using target-enrichment sequencing, and high-copy marker of plastome and nrDNA were extracted via [Getorgenalla](https://github.com/Kinggerm/GetOrganelle). All bioinformatic were performed via New Zealand eScience Infrastructure [NeSI](https://www.nesi.org.nz/)
+
+#### A353 loci sequence extraction and gene trees reconstruction
 
 
-#### Single copy gene sequence extraction
-▪️ Pop gene analysis (PCA, NJ-tree, Structure)
-1. All AD1 65 samples' raw reads were trimmed with [Trimmomatic](https://github.com/usadellab/Trimmomatic.git).
-3. Following [sentieon-dnaseq](https://github.com/Sentieon/sentieon-dnaseq.git), trimmmed reads mapping; GVCF calling; VCF calling; SNPs filtering.
-4. Using biallelic SNPs to estimate population genetic groups via [PLINK](https://www.cog-genomics.org/plink/) (PCA) and [LEA](https://bioconductor.org/packages/release/bioc/html/LEA.html).
-5. Including additional two AD4 samples as outgroup, and calling bialleic SNPs from the 'combined' VCF with 65 AD1 samples, which include variable and invariable sites.
 
 #### High copy gene sequence extraction
 
