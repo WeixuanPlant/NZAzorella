@@ -49,15 +49,29 @@ sed 's/\r$//' Treenamen132.csv > Treenamen132_fixed.csv
 
 #######################################################################################
 
-#align the individual gene sequences with maff
-module load MAFFT/7.429-gimkl-2020a
-for word in $(cat aln132_n15.txt); do mafft --auto --thread 10 "${word}"_supercontig_fixed.fasta > "${word}"_aln.fasta; done
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=5
+#SBATCH --mem=10G 
+#SBATCH --time=02:00:00
+#SBATCH --mail-user=EMAILHere
+#SBATCH --mail-type=ALL
+#SBATCH --open-mode=append
+#SBATCH --output="aln.%J.out"
+#SBATCH --job-name="aln"
+#SBATCH --array=1-351%2
+
+word=$(cat sample_n131_genelistn351.txt | sed -n ${SLURM_ARRAY_TASK_ID}p)
+
+module load mafft/7.508
+
+echo "${word}"
+
+mafft --auto --thread 10 "${word}"_supercontig_n131.fasta > "${word}"_aln.fasta
+/work/LAS/jfw-lab/weixuan/94_weixuan/n23_newanalysis/trimal/source/trimal -in "${word}"_aln.fasta -out "${word}"_trim.fasta -gt 0.7
 
 
-module load trimAl/1.4.1-GCC-9.2.0
-for word in $(cat aln132_n15.txt); do echo "${word}"; trimal -in "${word}"_aln.fasta -out "${word}"_trim.fasta -gt 0.7; done 
-
-grep -c '>' *_trim.fasta | sed 's/_trim.fasta:/ /' | sort -g -k 2 | awk '$2 >= 0  { print $1, $2}'
+grep -c '>' *_trim.fasta | sed 's/_trim.fasta:/ /' | sort -g -k 2 | awk '$2 >= 15  { print $1, $2}' > aln132_n15.txt
 
 for word in $(cat ../aln132_n15.txt)
 do
