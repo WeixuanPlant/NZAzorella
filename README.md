@@ -20,6 +20,45 @@ Genera with species of multiple ploidal levels provide models to understand succ
 We extracted Angiosperm353 loci via [HybPiper](https://github.com/mossmatters/HybPiper) using target-enrichment sequencing, and high-copy marker of plastome and nrDNA were extracted via [Getorgenalla](https://github.com/Kinggerm/GetOrganelle). All bioinformatic were performed via New Zealand eScience Infrastructure [NeSI](https://www.nesi.org.nz/)
  
 ### A353 loci sequence extraction and gene trees reconstruction
+#### Raw reads trimming 
+```
+module load Trimmomatic/0.39-Java-1.8.0_144
+
+for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_Angiosperm353_NCBI_upload/01_trimmed/*_1.fq.gz
+	do
+	withpath="${file}"
+	filename=${withpath##*/}
+	base="${filename%**_1.fq.gz}"
+	echo "${base}"
+	trimmomatic PE -threads 25 "${base}"_1.fq.gz "${base}"_2.fq.gz \
+	"${base}"_1P.fq.gz "${base}"_1UP.fq.gz \
+	"${base}"_2P.fq.gz "${base}"_2UP.fq.gz \
+	ILLUMINACLIP:TruSeq3-PE-2.fa:2:20:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:50
+done
+```
+
+#### Supercontigs retreving via HybPiper
+```
+module load Python/3.9.9-gimkl-2020a
+module load HybPiper/2.0.1rc-Miniconda3
+module load Parallel/20200522
+
+for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_Angiosperm353_NCBI_upload/02_pairedtrimed/*_1P.fq.gz
+	do
+	withpath="${file}"
+	filename=${withpath##*/}
+	base="${filename%*_1P.fq.gz}" 
+	echo "${base}"
+	
+	hybpiper assemble --run_intronerate \
+	--readfiles /nesi/nobackup/massey02696/WeixuanData/Azorella_Angiosperm353_NCBI_upload/02_pairedtrimed/"${base}"*P.fq.gz \
+	--targetfile_dna mega353.fasta --bwa \
+	--prefix "${base}"_nomerge  --no_padding_supercontigs \
+	--timeout_assemble 600 --paralog_min_length_percentage 0.5
+	done
+```
+
+
 
 ### High copy gene sequence extraction
 
