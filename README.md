@@ -57,11 +57,42 @@ for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_Angiosperm353_NCBI_u
 	--timeout_assemble 600 --paralog_min_length_percentage 0.5
 	done
 ```
-
-
-
 ### High copy gene sequence extraction
+#### Raw reads trimming
+```
+module load Trimmomatic/0.39-Java-1.8.0_144
 
+for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_upload/01_trimmedreads/*_1.fq.gz
+        do
+        withpath="${file}"
+        filename=${withpath##*/}
+        base="${filename%**_1.fq.gz}"
+        echo "${base}"
+        trimmomatic PE -threads 25 "${base}"_1.fq.gz "${base}"_2.fq.gz \
+        "${base}"_1P.fq.gz "${base}"_1UP.fq.gz \
+        "${base}"_2P.fq.gz "${base}"_2UP.fq.gz \
+        ILLUMINACLIP:TruSeq3-PE-2.fa:2:20:10 LEADING:20 TRAILING:20 SLIDINGWINDOW:4:20 MINLEN:50
+done
+```
+#### Retreiving high-copy markers via Getorganelle 
+```
+module load Miniconda3
+source $(conda info --base)/etc/profile.d/conda.sh
+conda activate /scale_wlg_persistent/filesets/project/massey02696/biopython
+cd /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_upload/03_getorgenlle
+
+
+for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_upload/02_trimmedreads/*_1P.fq.gz 
+	do 
+	withpath="${file}" 
+	filename=${withpath##*/} 
+	base="${filename%*_1P.fq.gz}" 
+	echo "${base}" 
+	
+	get_organelle_from_reads.py -1 ../02_trimmedreads/"${base}"_1P.fq.gz -2 ../02_trimmedreads/"${base}"_2P.fq.gz -o plastome_output/"${base}" -R 15 -k 21,45,65,85,105 -F embplant_pt
+	get_organelle_from_reads.py -1 ../02_trimmedreads/"${base}"_1P.fq.gz -2 ../02_trimmedreads/"${base}"_2P.fq.gz -o nrdna_output/"${base}" -R 10 -k 35,85,115 -F embplant_nr
+	done
+```
 #
 
 ### SNPs based phylogeny analysis 
