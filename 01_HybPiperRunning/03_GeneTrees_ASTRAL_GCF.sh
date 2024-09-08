@@ -31,6 +31,21 @@ java -jar  -Xmx16g phyparts-0.0.1-SNAPSHOT-jar-with-dependencies.jar -a 1 -v -d 
 grep 'Azly' loci_gt07_n4_Azorella.bs10.treefile  > loci_gt07_n4_Azorella.bs10.outgroup.treefile
 python3 ../phypartspiecharts/reroot_trees.py loci_gt07_n4_Azorella.bs10.outgroup.treefile utgroup.list  > loci_gt07_n4_Azorella.bs10.outgroup.rerooted.treefile
 
+#########################################################################################
+
+#!/bin/bash
+#SBATCH --nodes=1
+#SBATCH --cpus-per-task=20
+#SBATCH --mem=200G 
+#SBATCH --time=3-05:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --open-mode=append
+#SBATCH --output="job.vcf_n319.%J.out"
+#SBATCH --job-name="jointGeno_n319"
+
+module load openjdk/17.0.5_8-5pdrwz2
+
+java -jar -Xmx100g phyparts-0.0.1-SNAPSHOT-jar-with-dependencies.jar -a 1 -v -d loci_gt07_n15_gene345_bs10_reroot.treefile -m loci_gt07_n15_gene345_bs10_reroot_astral_reroot.treefile -o Azorella131_n15_gene345_bs10
 
 
 
