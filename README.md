@@ -95,6 +95,8 @@ for file in /nesi/nobackup/massey02696/WeixuanData/Azorella_GenomeSkimming_NCBI_
 ```
 #
 ### SNPs based phylogeny analysis 
+SNP amount Hyb-Seq reads were extracted using [HybSeq-SNP-Extraction](https://github.com/lindsawi/HybSeq-SNP-Extraction)
+
 #### SNP calling via remapping the reads back to the same reference for 23 representative individuals
 ```
 #The reference fasta gene names need to be changed according to file names
