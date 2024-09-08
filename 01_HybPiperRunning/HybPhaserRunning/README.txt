@@ -1,1 +1,1 @@
-#### This is bit taking from HyPhaser site for configuration
+#### This is bit taken from HyPhaser site for configuration
