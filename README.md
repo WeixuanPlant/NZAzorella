@@ -18,7 +18,11 @@ Genera with species of multiple ploidal levels provide models to understand succ
 ### Gene tree based  phylogeny inference 
 
 We extracted Angiosperm353 loci via [HybPiper](https://github.com/mossmatters/HybPiper) using target-enrichment sequencing, and high-copy marker of plastome and nrDNA were extracted via [Getorgenalla](https://github.com/Kinggerm/GetOrganelle). All bioinformatic were performed via New Zealand eScience Infrastructure [NeSI](https://www.nesi.org.nz/)
- 
+
+<p float="left">
+  <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/Workflow.png" height="700" />
+</p>
+
 ### A353 loci sequence extraction and gene trees reconstruction
 #### Raw reads trimming 
 ```
