@@ -11,5 +11,6 @@
 
 ## Final reconstructed phylogenies
 
-### Description: Final nrDNA tree for 105 *Azorella* samples
+### Final nrDNA tree for 105 *Azorella* samples: [Azorella_nrDNA_sorted_aln_trimgt07_rerooted.treefile](https://github.com/WeixuanPlant/NZAzorella/blob/main/06_sequencealignments/Azorella_nrDNA_sorted_aln_trimgt07_rerooted.treefile)
 
+### Final plastome tree for 105 *Azorella* samples: [Azorella_plastome_n99complete_n6map_aln_trim2_rerooted.treefile](https://github.com/WeixuanPlant/NZAzorella/blob/main/06_sequencealignments/Azorella_plastome_n99complete_n6map_aln_trim2_rerooted.treefile)
