@@ -26,6 +26,7 @@ We extracted Angiosperm353 loci via [HybPiper](https://github.com/mossmatters/Hy
   <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/Workflow.png" height="700" />
 </p>
 
+#
 ### A353 loci sequence extraction and gene trees reconstruction
 #### Raw reads trimming 
 ```
