@@ -12,7 +12,7 @@ Resolving Reticulate Evolutionary Histories of Polyploid Species of *Azorella* (
 </p>
 
 Photos:
-1–2. [Azorella haastii subsp. cynopetala](https://www.inaturalist.org/observations/76494088) — field-collected specimen and its natural habitat.
+1–2. [Azorella haastii subsp. cyanopetala](https://www.inaturalist.org/observations/76494088) — field-collected specimen and its natural habitat.
 3–4. [Azorella roughii](https://www.inaturalist.org/observations/36173244) — collected specimen and the corresponding collection site.
 #
 ### Abstract 
