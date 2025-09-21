@@ -1,7 +1,7 @@
 # Phylogenomics analysis of New Zealand *Azorella* 
 Resolving Reticulate Evolutionary Histories of Polyploid Species of *Azorella* (Apiaceae) Endemic to New Zealand 
 
-Manuscript link: to be updated
+Manuscript link: https://www.sciencedirect.com/science/article/pii/S1055790325001861
 
 <p float="left">
   <img src="https://github.com/WeixuanPlant/NZAzorella/blob/main/Supplymentary/filedAcyno.jpg" height="190" />
